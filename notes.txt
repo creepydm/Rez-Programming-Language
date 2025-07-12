@@ -1,0 +1,11 @@
+still to do:
+redfeine varibles <-- done
+for loops
+while loops <-- done
+user input <-- done
+output text <-- done
+
+stretch goals:
+files 
+imports
+struct
