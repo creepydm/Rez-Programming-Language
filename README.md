@@ -6,7 +6,7 @@ still to do:
 
 redfeine varibles <-- done 
 
-for loops 
+for loops <-- done
 
 while loops <-- done 
 
