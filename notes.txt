@@ -1,9 +1,10 @@
 still to do:
 redfeine varibles <-- done
-for loops
+for loops <-- done
 while loops <-- done
 user input <-- done
 output text <-- done
+make for loops create variable if it doesnt exist
 
 stretch goals:
 files 

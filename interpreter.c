@@ -428,6 +428,64 @@ void main(int argc, char *argv[]){
                 return;
             }
         }
+        else if(strncmp(line, "FOR", 3) == 0){
+            char var_name[max_length], func_name[max_length];
+            int target, step;
+
+            if (sscanf(line + 4, "%49[^,],%d,%d CALL %49s", var_name, &target, &step, func_name) == 4) {
+                int found = -1;
+                for(int i = 0; i < var_count; i++){
+                    if(strcmp(vars[i].var_name, var_name) == 0){
+                        found = i;
+                        break;
+                    }
+                }
+                if(found == -1){
+                    printf("%d INTERPRETER ERROR: VAR DOESN'T EXIST OR IS MISPELLED\n", current_line);
+                    return;
+                }
+                if(strcmp(vars[found].var_type, "INT") != 0){
+                    printf("%d INTERPRETER ERROR: VAR MUST BE INT\n", current_line);
+                    return;
+                }
+
+                int current_val = atoi(vars[found].var_value);
+
+                int loop_continue = 0;
+                if (step > 0) {
+                    loop_continue = (current_val < target);
+                } else if (step < 0) {
+                    loop_continue = (current_val > target);
+                } else {
+                    printf("%d INTERPRETER ERROR: STEP CANNOT BE ZERO\n", current_line);
+                    return;
+                }
+
+                if(loop_continue){
+                    int func_start = find_function(func_name);
+                    if (func_start == -1) {
+                        printf("Interpreter error: function %s not found\n", func_name);
+                        return;
+                    }
+
+                    
+                    current_val += step;
+                    sprintf(vars[found].var_value, "%d", current_val);
+
+                
+                stack_top++;
+                return_stack[stack_top] = current_line;
+                current_line = func_start;
+                continue;
+            } else {
+                current_line++;
+                continue;
+            }
+        } else {
+            printf("%d INTERPRETER ERROR: INVALID SYNTAX FOR FOR\n", current_line);
+            return;
+        }
+    }
 
         current_line++;
     }
