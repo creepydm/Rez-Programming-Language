@@ -441,10 +441,9 @@ void main(int argc, char *argv[]){
                     }
                 }
                 if(found == -1){
-                    printf("%d INTERPRETER ERROR: VAR DOESN'T EXIST OR IS MISPELLED\n", current_line);
-                    return;
+                    var_count = make_var(vars, var_count, var_name, "0", "INT");
                 }
-                if(strcmp(vars[found].var_type, "INT") != 0){
+                else if(strcmp(vars[found].var_type, "INT") != 0){
                     printf("%d INTERPRETER ERROR: VAR MUST BE INT\n", current_line);
                     return;
                 }
